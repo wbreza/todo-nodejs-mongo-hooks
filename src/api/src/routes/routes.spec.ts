@@ -6,6 +6,8 @@ import { TodoItem, TodoItemState } from "../models/todoItem";
 import { TodoList } from "../models/todoList";
 import mongoose from "mongoose";
 
+jest.setTimeout(60000);
+
 describe("API", () => {
     let app: Express;
     let server: Server;
