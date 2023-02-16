@@ -3,6 +3,10 @@
 name: todo-nodejs-mongo
 metadata:
   template: todo-nodejs-mongo@0.0.1-beta
+hooks:
+  postdeploy:
+    run: ./scripts/playwright.sh
+    interactive: true
 services:
   web:
     project: ./src/web
@@ -13,3 +17,8 @@ services:
     project: ./src/api
     language: js
     host: appservice
+    hooks:
+      predeploy:
+        shell: sh
+        run: npm run test
+        interactive: true

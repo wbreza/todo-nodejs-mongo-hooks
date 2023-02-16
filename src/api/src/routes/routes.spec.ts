@@ -4,6 +4,7 @@ import { Express } from "express";
 import { createApp } from "../app";
 import { TodoItem, TodoItemState } from "../models/todoItem";
 import { TodoList } from "../models/todoList";
+import mongoose from "mongoose";
 
 describe("API", () => {
     let app: Express;
@@ -18,9 +19,19 @@ describe("API", () => {
         });
     });
 
-    afterAll((done) => {
-        server.close(done);
-        console.log("Stopped server");
+    afterAll(async () => {
+        await mongoose.disconnect();
+        return new Promise<null>((resolve, reject) => {
+            console.log("Stopping server");
+            server.close(err => {
+                if (err != null) {
+                    return reject(err);
+                }
+
+                console.log("Stopped Server");
+                setTimeout(resolve, 500);
+            });
+        });
     });
 
     describe("Todo List Routes", () => {

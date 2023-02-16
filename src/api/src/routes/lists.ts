@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 import { PagingQueryParams } from "../routes/common";
 import { TodoList, TodoListModel } from "../models/todoList";
 
+jest.setTimeout(60000);
 const router = express.Router();
 
 type TodoListPathParams = {
